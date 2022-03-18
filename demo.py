@@ -12,7 +12,7 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 st.title("Question Answering Webapp")
 st.text("What would you like to know today?")
 
-@st.cache(allow_output_mutation=True)
+#@st.cache(allow_output_mutation=True)
 
 with st.spinner ('Loading Model into Memory....'):
     retriever = DensePassageRetriever(document_store=document_store, query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki", passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",)
