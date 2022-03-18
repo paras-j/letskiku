@@ -1,3 +1,4 @@
+pip==22.0.4
 streamlit==1.2.0
 streamlit_webrtc==0.31.1
 git+https://github.com/deepset-ai/haystack.git#egg=farm-haystack[colab,faiss]
