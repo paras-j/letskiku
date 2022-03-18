@@ -29,7 +29,7 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 st.title("Question Answering Webapp")
 st.text("What would you like to know today?")
 
-@st.cache(allow_output_mutation=True)
+#@st.cache(allow_output_mutation=True)
 #def load_model():
 #  model=joblib.load('bert_qa_custom.joblib')
 #  return model
