@@ -41,8 +41,8 @@
     
     
     
-import streamlit as st
 #from haystack.utils import convert_files_to_dicts, fetch_archive_from_http, clean_wiki_text
+import streamlit as st
 from haystack.document_stores import FAISSDocumentStore
 from haystack.nodes import DensePassageRetriever
 
@@ -61,15 +61,11 @@ st.title("Question Answering Webapp")
 st.text("What would you like to know today?")
     
 text = st.text_input('Enter your questions here....')
-res = get_retriever().run(query=text, params={"Retriever": {"top_k": 1}})
-
 if text:
     st.write("Response:")
     with st.spinner('Searching for answers....'):
-        prediction = print_documents(res, max_text_len=512)
-        st.write('answer: {}'.format(prediction))
-#        st.write('title: {}'.format(prediction[1]))
-#        st.write('paragraph: {}'.format(prediction[2]))
+        res = get_retriever().run(query=text, params={"Retriever": {"top_k": 1}})
+        st.write('answer: {}'.format(print_documents(res, max_text_len=512)))
     st.write("")    
     
 
