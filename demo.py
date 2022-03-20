@@ -84,12 +84,36 @@
     
 import streamlit as st
 
-header = st.beta_container()
-dataset = st.beta_container()
-features = st.beta_container()
-modelTraining = st.beta_container()
+header = st.container()
+dataset = st.container()
+features = st.container()
+model_training = st.container()
 
 with header:
-    st.title('Welcoem to our startup advisory')
+    st.title('Welcome to our startup advisory!')
+    st.text("On this page we will answer questions regarding your startups based on what we learnt from YC's Michael and Dalton")
 
+
+    
+with dataset:
+    st.header("YC's YouTube videos")
+    st.text("I found these videos very informative")
+
+
+    
+    
+with features:
+    st.header("The features I created")
+
+    
+    
+with model_training:
+    st.header("Time to train the model!")
+    st.text("Here we'll play with hyperparamets")
+    
+    
+    
+    
+    
+    
 
