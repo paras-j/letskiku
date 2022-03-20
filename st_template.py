@@ -78,8 +78,8 @@ st.markdown(
 
 
 # here is how to create containers
-header_container = st.beta_container()
-stats_container = st.beta_container()	
+header_container = st.container()
+stats_container = st.container()	
 #######################################
 
 
