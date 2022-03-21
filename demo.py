@@ -51,6 +51,7 @@ from haystack.pipelines import DocumentSearchPipeline
 
 @st.cache(allow_output_mutation=True)
 def get_retriever():
+    st.write("I am in get_retreiver")
     document_store = FAISSDocumentStore.load("haystack_got_faiss_1")
 #     document_store = FAISSDocumentStore(embedding_dim=128, faiss_index_factory_str="Flat")
 #     doc_dir = "data/article_txt_got"
@@ -58,8 +59,11 @@ def get_retriever():
 #     fetch_archive_from_http(url=s3_url, output_dir=doc_dir)
 #     dicts = convert_files_to_dicts(dir_path=doc_dir, clean_func=clean_wiki_text, split_paragraphs=True)
 #     document_store.write_documents(dicts)
+    st.write("I got document_store")
+
     retriever = DensePassageRetriever(document_store=document_store, query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki", passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",)
     p_retrieval = DocumentSearchPipeline(retriever)
+    st.write("I got p_retrieval")
     return p_retrieval
 
 st.set_option('deprecation.showfileUploaderEncoding', False)
@@ -70,7 +74,7 @@ text = st.text_input('Enter your questions here....')
 if text:
     st.write("Response:")
     with st.spinner('Searching for answers....'):
-        print("I am searching for answers")
+        st.write("I am about to call get_retreiver")
         res = get_retriever().run(query=text, params={"Retriever": {"top_k": 1}})
         st.write('answer: {}'.format(print_documents(res, max_text_len=512)))
     st.write("")    
