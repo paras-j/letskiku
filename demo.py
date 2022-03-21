@@ -41,7 +41,7 @@
     
     
     
-from haystack.utils import convert_files_to_dicts, fetch_archive_from_http, clean_wiki_text
+#from haystack.utils import convert_files_to_dicts, fetch_archive_from_http, clean_wiki_text
 import streamlit as st
 from haystack.document_stores import FAISSDocumentStore
 from haystack.nodes import DensePassageRetriever
