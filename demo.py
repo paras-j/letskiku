@@ -49,7 +49,7 @@ from haystack.nodes import DensePassageRetriever
 from haystack.utils import print_documents
 from haystack.pipelines import DocumentSearchPipeline
 
-@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def get_retriever():
     st.write("I am in get_retreiver")
     document_store = FAISSDocumentStore.load("haystack_got_faiss_1")
@@ -76,6 +76,7 @@ if text:
     with st.spinner('Searching for answers....'):
         st.write("I am about to call get_retreiver")
         res = get_retriever().run(query=text, params={"Retriever": {"top_k": 1}})
+        st.write("I got res")
         st.write('answer: {}'.format(print_documents(res, max_text_len=512)))
     st.write("")    
     
