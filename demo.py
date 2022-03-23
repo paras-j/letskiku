@@ -14,7 +14,7 @@ def get_retriever():
 
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def get_generator():
-    st.write("I am inside retriever")
+    st.write("I am inside generator")
     generator = Seq2SeqGenerator(model_name_or_path="vblagoje/bart_lfqa")
     st.write("I got generator")
     return generator
@@ -28,7 +28,7 @@ with st.spinner ('Loading Model into Memory....'):
     generator = get_generator()
     pipe = GenerativeQAPipeline(generator, retriever)  
 
-text = st.text_input('Enter your questions here....') # no input required
+text = st.text_input('Enter your questions here....')
 if text:
     st.write("Response:")
     with st.spinner('Searching for answers....'):
