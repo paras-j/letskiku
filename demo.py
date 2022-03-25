@@ -15,7 +15,8 @@ def get_retriever():
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def get_generator():
     st.write("I am inside generator")
-    generator = Seq2SeqGenerator(model_name_or_path="vblagoje/bart_lfqa")
+    #generator = Seq2SeqGenerator(model_name_or_path="vblagoje/bart_lfqa")
+    generator = Seq2SeqGenerator(model_name_or_path="yjernite/bart_eli5")
     st.write("I got generator")
     return generator
 
