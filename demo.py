@@ -27,7 +27,7 @@ from haystack.pipelines import ExtractiveQAPipeline
 
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def get_retriever():
-    document_store = FAISSDocumentStore.load("haystack_got_faiss_0322")
+    document_store = FAISSDocumentStore.load("haystack_got_faiss_1")
     st.write("I got document_store in retreiver")
     #retriever = TfidfRetriever(document_store=document_store)
     retriever = DensePassageRetriever(document_store=document_store, query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki", passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",)
