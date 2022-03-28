@@ -25,7 +25,7 @@ def get_document_store():
 
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def get_retriever():
-    document_store = get_document_store()
+    document_store = FAISSDocumentStore.load("haystack_got_faiss_1")
     st.write("I got document_store in retreiver")
     retriever = DensePassageRetriever(document_store=document_store, query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki", passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",)
     st.write("I got retriever")
