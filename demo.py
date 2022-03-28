@@ -1,36 +1,36 @@
 import streamlit as st
 
-from haystack.utils import clean_wiki_text, convert_files_to_dicts, fetch_archive_from_http, print_answers
+# from haystack.utils import clean_wiki_text, convert_files_to_dicts, fetch_archive_from_http, print_answers
 from haystack.nodes import FARMReader, TransformersReader
 from haystack.document_stores import FAISSDocumentStore
 from haystack.nodes import DensePassageRetriever
 from haystack.nodes import FARMReader, TransformersReader
 from haystack.pipelines import ExtractiveQAPipeline
 
-@st.cache(allow_output_mutation=True, suppress_st_warning=True)
-def get_document_store():
-    document_store = FAISSDocumentStore(embedding_dim=128, faiss_index_factory_str="Flat")
+# @st.cache(allow_output_mutation=True, suppress_st_warning=True)
+# def get_document_store():
+#     document_store = FAISSDocumentStore(embedding_dim=128, faiss_index_factory_str="Flat")
 
-    # Let's first get some files that we want to use
-    doc_dir = "data/article_txt_got"
-    s3_url = "https://s3.eu-central-1.amazonaws.com/deepset.ai-farm-qa/datasets/documents/wiki_gameofthrones_txt.zip"
-    fetch_archive_from_http(url=s3_url, output_dir=doc_dir)
-    # Convert files to dicts
-    dicts = convert_files_to_dicts(dir_path=doc_dir, clean_func=clean_wiki_text, split_paragraphs=True)
-    # Now, let's write the dicts containing documents to our DB.
-    document_store.write_documents(dicts)
+#     # Let's first get some files that we want to use
+#     doc_dir = "data/article_txt_got"
+#     s3_url = "https://s3.eu-central-1.amazonaws.com/deepset.ai-farm-qa/datasets/documents/wiki_gameofthrones_txt.zip"
+#     fetch_archive_from_http(url=s3_url, output_dir=doc_dir)
+#     # Convert files to dicts
+#     dicts = convert_files_to_dicts(dir_path=doc_dir, clean_func=clean_wiki_text, split_paragraphs=True)
+#     # Now, let's write the dicts containing documents to our DB.
+#     document_store.write_documents(dicts)
 
-    st.write("I got doc store")
-    return document_store
+#     st.write("I got doc store")
+#     return document_store
 
-from haystack.nodes import TfidfRetriever
+#from haystack.nodes import TfidfRetriever
 
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def get_retriever():
     document_store = FAISSDocumentStore.load("haystack_got_faiss_1")
     st.write("I got document_store in retreiver")
-    retriever = TfidfRetriever(document_store=document_store)
-    #retriever = DensePassageRetriever(document_store=document_store, query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki", passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",)
+    #retriever = TfidfRetriever(document_store=document_store)
+    retriever = DensePassageRetriever(document_store=document_store, query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki", passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",)
     st.write("I got retriever")
     return retriever
 
@@ -56,8 +56,9 @@ if text:
     st.write("Response:")
     with st.spinner('Searching for answers....'):
         st.write("I'm in spinner")
-        prediction = pipe.run(query=text, params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 1}})
+        prediction = pipe.run(query=text, params={"Retriever": {"top_k": 10}, "Reader": {"top_k": 2}})
         st.write('answer: {}'.format(prediction['answers'][0].answer))
+        st.write('answer: {}'.format(prediction['answers'][1].answer))
     st.write("")
 
 
