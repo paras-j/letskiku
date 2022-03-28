@@ -34,8 +34,8 @@ def get_retriever():
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def get_reader():
     st.write("I am inside reader")
-    reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=True)
-    #reader = TransformersReader(model_name_or_path="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased", use_gpu=-1)
+    #reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=True)
+    reader = TransformersReader(model_name_or_path="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased", use_gpu=-1)
     st.write("I got reader")
     return reader
 
