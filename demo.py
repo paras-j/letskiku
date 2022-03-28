@@ -23,14 +23,14 @@ from haystack.pipelines import ExtractiveQAPipeline
 #     st.write("I got doc store")
 #     return document_store
 
-#from haystack.nodes import TfidfRetriever
+from haystack.nodes import TfidfRetriever
 
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def get_retriever():
     document_store = FAISSDocumentStore.load("haystack_got_faiss_1")
     st.write("I got document_store in retreiver")
-    #retriever = TfidfRetriever(document_store=document_store)
-    retriever = DensePassageRetriever(document_store=document_store, query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki", passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",)
+    retriever = TfidfRetriever(document_store=document_store)
+    #retriever = DensePassageRetriever(document_store=document_store, query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki", passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",)
     st.write("I got retriever")
     return retriever
 
