@@ -23,11 +23,14 @@ def get_document_store():
     st.write("I got doc store")
     return document_store
 
+from haystack.nodes import TfidfRetriever
+
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
 def get_retriever():
     document_store = FAISSDocumentStore.load("haystack_got_faiss_1")
     st.write("I got document_store in retreiver")
-    retriever = DensePassageRetriever(document_store=document_store, query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki", passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",)
+    retriever = TfidfRetriever(document_store=document_store)
+    #retriever = DensePassageRetriever(document_store=document_store, query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki", passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",)
     st.write("I got retriever")
     return retriever
 
@@ -35,7 +38,7 @@ def get_retriever():
 def get_reader():
     st.write("I am inside reader")
     #reader = FARMReader(model_name_or_path="deepset/roberta-base-squad2", use_gpu=True)
-    reader = TransformersReader(model_name_or_path="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased", use_gpu=-1)
+    reader = TransformersReader(model_name_or_path="distilbert-base-uncased-distilled-squad", tokenizer="distilbert-base-uncased", use_gpu=0)
     st.write("I got reader")
     return reader
 
