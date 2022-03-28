@@ -48,7 +48,7 @@ st.text("What would you like to know today?")
 
 with st.spinner ('Loading Model into Memory....'):
     retriever = get_retriever()
-    generator = get_reader()
+    reader = get_reader()
     pipe = ExtractiveQAPipeline(reader, retriever)  
 
 text = st.text_input('Enter your questions here....')
